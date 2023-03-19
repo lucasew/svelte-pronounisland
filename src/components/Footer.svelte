@@ -12,7 +12,7 @@
 </div>
 <div class="section contact">
     <p>Written by <a href="https://github.com/lucasew">@lucasew</a>, whose <a href="{hostname}/he">{hostname}/he</a>, based on work from <a href="https://www.twitter.com/morganastra">@morganastra</a></p>
-    <p>{hostname} is free software under the <a href="https://www.gnu.org/licenses/agpl.html">AGPLv3</a>! visit the project on <a href="https://github.com/witch-house/pronoun.is">github (TODO: link)</a></p>
+    <p>{hostname} is free software under the <a href="https://www.gnu.org/licenses/agpl.html">AGPLv3</a>! visit the project on <a href="https://github.com/lucasew/svelte-pronounisland">github</a></p>
     <p>&lt;3</p>
 </div>
 </footer>
