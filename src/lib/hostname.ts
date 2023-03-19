@@ -1,4 +1,5 @@
-import { browser } from '$app/environment'; 
-const hostname = !browser ? "default" : window.location.origin
+import {page} from '$app/stores'
+import { derived } from 'svelte/store';
+const hostname = derived([page], ([page]) => page.url.origin)
 
 export default hostname
