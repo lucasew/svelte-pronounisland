@@ -30,7 +30,28 @@ const database = writable<DatabaseEntry[]>(pronounsDatabase.split('\n').map(s =>
 
 const pronounCandidates = derived([database, page], ([database, page]) => {
     const pronouns = page.params.pronouns || ''
-    const pronounsSet = new Set(pronouns.split('/').map(p => p.trim()))
+    const pronounsParts = pronouns.split('/').map(p => p.trim())
+    const pronounsSet = new Set(pronounsParts)
+
+    if (pronounsParts.length == 5) { // all the parts
+        const [
+            subject_pronoun,
+            object_pronoun,
+            possessive_determiner,
+            possessive_pronoun,
+            reflexive
+        ] = pronounsParts
+        return [
+            {
+                subject_pronoun,
+                object_pronoun,
+                possessive_determiner,
+                possessive_pronoun,
+                reflexive,
+                score: 9999
+            }
+        ]
+    }
 
     const databaseScored: DatabaseEntryScored[] = database.map(item => {
         return {
