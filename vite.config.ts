@@ -3,6 +3,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	ssr: {
+		noExternal: ['estree-walker']
+	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
