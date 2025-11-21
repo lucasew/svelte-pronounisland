@@ -3,12 +3,6 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	ssr: {
-		noExternal: ['estree-walker', 'is-reference', 'periscopic']
-	},
-	optimizeDeps: {
-		include: ['estree-walker']
-	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}

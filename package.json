@@ -32,5 +32,8 @@
 	"type": "module",
 	"dependencies": {
 		"eslint-plugin-svelte": "^3.11.0"
+	},
+	"resolutions": {
+		"estree-walker": "2.0.2"
 	}
 }
