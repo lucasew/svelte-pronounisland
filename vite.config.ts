@@ -6,6 +6,9 @@ export default defineConfig({
 	ssr: {
 		noExternal: ['estree-walker', 'is-reference', 'periscopic']
 	},
+	optimizeDeps: {
+		include: ['estree-walker']
+	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
