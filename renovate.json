@@ -1,42 +1,26 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "github>lewtec/renovate-config:base"
-  ],
-  "lockFileMaintenance": {
-    "automerge": true,
-    "automergeType": "pr",
-    "enabled": true,
-    "recreateWhen": "always"
-  },
-  "packageRules": [
-    {
-      "automerge": true,
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
-    },
-    {
-      "automerge": true,
-      "matchUpdateTypes": [
-        "patch"
-      ]
-    },
-    {
-      "automerge": true,
-      "matchDepNames": [
-        "@sveltekit/kit",
-        "svelte"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
-    }
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended", "github>lewtec/renovate-config:base"],
+	"lockFileMaintenance": {
+		"automerge": true,
+		"automergeType": "pr",
+		"enabled": true,
+		"recreateWhen": "always"
+	},
+	"packageRules": [
+		{
+			"automerge": true,
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor", "patch"]
+		},
+		{
+			"automerge": true,
+			"matchUpdateTypes": ["patch"]
+		},
+		{
+			"automerge": true,
+			"matchDepNames": ["@sveltekit/kit", "svelte"],
+			"matchUpdateTypes": ["minor", "patch"]
+		}
+	]
 }
