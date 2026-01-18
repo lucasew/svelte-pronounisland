@@ -1,7 +1,45 @@
 [tools]
 bun = "1.3.6"
-task = "latest"
-dprint = "latest"
+dprint = "0.45.1"
 
 [env]
 _.path = ['{{config_root}}/node_modules/.bin']
+
+[tasks.lint]
+description = "Run all linters"
+depends = ["lint:eslint", "lint:prettier", "lint:svelte-check"]
+
+[tasks."lint:eslint"]
+description = "Run ESLint"
+run = "bun run eslint ."
+
+[tasks."lint:prettier"]
+description = "Check Prettier formatting"
+run = "bun run prettier --check ."
+
+[tasks."lint:svelte-check"]
+description = "Run Svelte Check"
+run = """
+bun run svelte-kit sync
+bun run svelte-check --tsconfig ./tsconfig.json
+"""
+
+[tasks.fmt]
+description = "Run all formatters"
+depends = ["fmt:prettier", "fmt:dprint"]
+
+[tasks."fmt:prettier"]
+description = "Run Prettier"
+run = "bun run prettier --write ."
+
+[tasks."fmt:dprint"]
+description = "Run dprint (Markdown)"
+run = "bun x dprint fmt"
+
+[tasks."test:unit"]
+description = "Run unit tests"
+run = "bun run vitest run"
+
+[tasks.ci]
+description = "CI task"
+depends = ["lint", "test:unit"]
