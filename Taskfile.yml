@@ -1,0 +1,45 @@
+version: '3'
+
+tasks:
+  lint:
+    desc: Run all linters
+    deps: [lint:eslint, lint:prettier, lint:svelte-check]
+
+  lint:eslint:
+    desc: Run ESLint
+    cmds:
+      - bun run eslint .
+
+  lint:prettier:
+    desc: Check Prettier formatting
+    cmds:
+      - bun run prettier --check .
+
+  lint:svelte-check:
+    desc: Run Svelte Check
+    cmds:
+      - bun run svelte-kit sync
+      - bun run svelte-check --tsconfig ./tsconfig.json
+
+  fmt:
+    desc: Run all formatters
+    deps: [fmt:prettier, fmt:dprint]
+
+  fmt:prettier:
+    desc: Run Prettier
+    cmds:
+      - bun run prettier --write .
+
+  fmt:dprint:
+    desc: Run dprint (Markdown)
+    cmds:
+      - bun x dprint fmt
+
+  test:unit:
+    desc: Run unit tests
+    cmds:
+      - bun run vitest run
+
+  ci:
+    desc: CI task
+    deps: [lint, test:unit]
