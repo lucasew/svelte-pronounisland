@@ -1,0 +1,73 @@
+name: Autorelease
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: jdx/mise-action@v2
+
+      - name: Install dependencies
+        run: mise run install
+
+      - name: Codegen
+        run: mise run codegen
+
+      - name: Check for changes and create PR
+        id: changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "Changes detected"
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+            BRANCH_NAME="codegen-update-$(date +%s)"
+            git checkout -b "$BRANCH_NAME"
+            git add .
+            git commit -m "chore: update generated code"
+            git push origin "$BRANCH_NAME"
+
+            gh pr create \
+              --title "chore: update generated code" \
+              --body "This PR updates the generated code." \
+              --head "$BRANCH_NAME" \
+              --base "${{ github.head_ref || github.ref_name }}"
+
+            echo "PR created"
+          fi
+
+      - name: Run CI
+        run: mise run ci
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${GITHUB_REF#refs/tags/} --generate-notes
+
+      - name: Build for Artifacts
+        if: (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/'))
+        run: bun run build
+
+      - name: Upload Artifacts
+        if: (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/'))
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build/

@@ -3,3 +3,33 @@ bun = "1.3.8"
 
 [env]
 _.path = ['{{config_root}}/node_modules/.bin']
+
+[tasks.install]
+run = "bun install"
+
+[tasks.codegen]
+run = "svelte-kit sync"
+
+[tasks."lint:eslint"]
+run = "eslint ."
+
+[tasks."lint:prettier"]
+run = "prettier --check ."
+
+[tasks."lint:check"]
+run = "svelte-check --tsconfig ./tsconfig.json"
+
+[tasks.lint]
+depends = ["lint:*"]
+
+[tasks."fmt:prettier"]
+run = "prettier --write ."
+
+[tasks.fmt]
+depends = ["fmt:*"]
+
+[tasks.test]
+run = "vitest run"
+
+[tasks.ci]
+depends = ["lint", "test"]
