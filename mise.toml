@@ -3,3 +3,51 @@ bun = "1.3.8"
 
 [env]
 _.path = ['{{config_root}}/node_modules/.bin']
+
+[tasks.install]
+run = "bun install"
+description = "Install dependencies"
+
+[tasks.codegen]
+run = "bun run svelte-kit sync"
+description = "Generate SvelteKit types"
+
+[tasks."lint:eslint"]
+run = "bun run eslint ."
+description = "Lint with ESLint"
+
+[tasks."lint:prettier"]
+run = "bun run prettier --check ."
+description = "Check formatting with Prettier"
+
+[tasks."lint:svelte-check"]
+run = "bun run svelte-check --tsconfig ./tsconfig.json"
+description = "Check Svelte types"
+
+[tasks.lint]
+depends = ["lint:*"]
+description = "Run all linters"
+
+[tasks."fmt:prettier"]
+run = "bun run prettier --write ."
+description = "Format code with Prettier"
+
+[tasks.fmt]
+depends = ["fmt:*"]
+description = "Run all formatters"
+
+[tasks."test:unit"]
+run = "bun run vitest run"
+description = "Run unit tests"
+
+[tasks.test]
+depends = ["test:*"]
+description = "Run all tests"
+
+[tasks.build]
+run = "bun run build"
+description = "Build the application"
+
+[tasks.ci]
+depends = ["lint", "test", "build"]
+description = "Run CI pipeline"
