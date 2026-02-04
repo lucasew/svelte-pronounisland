@@ -36,6 +36,6 @@
 		"eslint-plugin-svelte": "^3.11.0"
 	},
 	"resolutions": {
-		"estree-walker": "2.0.2"
+		"estree-walker": "3.0.3"
 	}
 }
