@@ -35,6 +35,7 @@ jobs:
           title: 'chore: update generated files'
           body: 'This PR updates generated files based on the latest changes.'
           branch: 'chore/codegen-updates'
+          base: 'main'
 
       - name: Run CI
         run: mise run ci
