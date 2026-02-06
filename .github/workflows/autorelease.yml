@@ -19,10 +19,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: jdx/mise-action@v2.1.0
-        with:
-          install: false
-          cache: false
+      - name: Install mise
+        run: |
+          curl https://mise.run | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
