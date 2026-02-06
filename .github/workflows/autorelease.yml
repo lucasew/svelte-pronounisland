@@ -50,4 +50,3 @@ jobs:
 
       - name: CI
         run: mise run ci --verbose
-
