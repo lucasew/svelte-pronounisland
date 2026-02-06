@@ -22,7 +22,7 @@ jobs:
       - uses: jdx/mise-action@v2
         with:
           install: true
-          cache: true
+          cache: false
 
       - name: Install dependencies
         run: mise run install
