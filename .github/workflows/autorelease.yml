@@ -19,16 +19,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install mise
-        run: |
-          curl https://mise.run | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-          echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
+      - uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: false
+          experimental: true
 
       - name: Install dependencies
-        run: |
-          mise install
-          mise run install
+        run: mise run install
 
       - name: Codegen
         run: mise run codegen
