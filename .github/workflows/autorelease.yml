@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: jdx/mise-action@v2
+      - uses: jdx/mise-action@v2.1.0
         with:
           install: false
           cache: false
