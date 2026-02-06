@@ -8,6 +8,7 @@ _.path = ['{{config_root}}/node_modules/.bin']
 run = "bun install"
 
 [tasks.codegen]
+description = "Generate types and sync config"
 run = "svelte-kit sync"
 
 [tasks."lint:eslint"]
