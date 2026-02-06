@@ -32,21 +32,5 @@ jobs:
       - name: Codegen
         run: mise run codegen
 
-      - name: Check for changes
-        id: git-check
-        run: |
-          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
-
-      - name: Create PR if changes
-        if: steps.git-check.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'chore: update generated code'
-          title: 'chore: update generated code'
-          body: 'This PR updates generated code based on the latest changes.'
-          branch: 'chore/codegen-update'
-          base: ${{ github.head_ref }}
-
       - name: CI
         run: mise run ci --verbose
