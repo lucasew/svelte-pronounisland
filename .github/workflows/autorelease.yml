@@ -27,6 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           mise trust
+          mise install
           mise run install
 
       - name: Codegen
