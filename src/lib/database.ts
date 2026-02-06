@@ -1,6 +1,7 @@
 import { derived, writable } from 'svelte/store';
 import { page } from '$app/stores';
 import pronounsDatabase from '$lib/data/pronouns.tab?raw';
+import { reportError } from '$lib/error';
 
 interface DatabaseEntry {
 	subject_pronoun: string;
@@ -20,6 +21,7 @@ const database = writable<DatabaseEntry[]>(
 		.map((s) => {
 			const parts = s.split('\t');
 			if (parts.length != 5) {
+				reportError(new Error('Invalid database entry'), { entry: s });
 				return null;
 			}
 			return {
