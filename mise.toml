@@ -41,4 +41,4 @@ depends = ["test:*"]
 run = "vite build"
 
 [tasks.ci]
-depends = ["lint", "test"]
+depends = ["lint", "test", "build"]
